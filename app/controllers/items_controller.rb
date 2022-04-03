@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
       if @item.save
         flash[:notice] = "#{@item.name} was added to the system."
         redirect_to item_path(@item)
+      end
     end
   end
 
