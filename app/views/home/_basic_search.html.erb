@@ -1,0 +1,39 @@
+<% unless @owners.empty? %>
+  <p><em><strong>Owners matching term '<%= @query %>'</strong></em></p>
+  <ul>
+    <% for owner in @owners do %>
+      <li><%= link_to owner.name, owner_path(owner) %></li>
+    <% end %>
+  </ul>
+  <p class="smtext">&nbsp;</p>
+<% end %>
+
+<% unless @pets.empty? %>
+  <p><em><strong>Pets matching term '<%= @query %>'</strong></em></p>
+  <ul>
+    <% for pet in @pets do %>
+      <li><%= link_to pet.name, pet_path(pet) %>: owned by <%= "#{pet.owner.name}" %></li>
+    <% end %>
+  </ul>
+  <p class="supertiny">&nbsp;</p>
+<% end %>
+
+<% unless @medicines.empty? %>
+  <p><em><strong>Medicines matching term '<%= @query %>'</strong></em></p>
+  <ul>
+    <% for medicine in @medicines do %>
+      <li><%= link_to medicine.name, medicine_path(medicine) %></li>
+    <% end %>
+  </ul>
+  <p class="supertiny">&nbsp;</p>
+<% end %>
+
+<% unless @procedures.empty? %>
+  <p><em><strong>Procedures matching term '<%= @query %>'</strong></em></p>
+  <ul>
+    <% for procedure in @procedures do %>
+      <li><%= link_to procedure.name, procedure_path(procedure) %></li>
+    <% end %>
+  </ul>
+  <p class="supertiny">&nbsp;</p>
+<% end %>

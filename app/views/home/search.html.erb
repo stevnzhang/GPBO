@@ -1,2 +1,5 @@
-<h1>Home#search</h1>
-<p>Find me in app/views/home/search.html.erb</p>
+<h5>Search result for term <em>'<%= @query %>'</em> resulted in <%= pluralize(@total_hits, 'hit') %></h5>
+<p class="supertiny">&nbsp;</p>
+
+<%= render partial: 'basic_search' %>
+<%# render partial: 'multisearch' %>
