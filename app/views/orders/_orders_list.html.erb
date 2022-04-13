@@ -1,0 +1,36 @@
+<% if current_user.role? :admin %>
+  <h4>Pending Orders :: Past Orders</h4>
+<% end %>
+
+<% if current_user.role? :customer %>
+  <h4>Orders</h4>
+  <table class="striped highlight">
+    <thead>
+      <th>Date</th>
+      <% if current_user.role? :admin %>
+        <th class="align_center">Options</th>
+      <% end %>
+    </thead>
+    <% for order in @all_orders %>
+      <tr>
+        <td><%= link_to order.date, order_path(order) %></td>
+        <% if current_user.role? :admin %>
+          <td class="align_center">
+          <%= link_to edit_order_path(order) do %>
+                <i class="material-icons">edit</i>
+            <% end %>
+            &nbsp;&nbsp;&nbsp;&nbsp; 
+            <%= link_to(order_path(order), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
+                <i class="material-icons">delete</i>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <%= will_paginate @all_orders, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+  <p>&nbsp;</p>
+<% end %>
+
+<%= render :partial => "partials/add_new_object", locals: {model_name: 'order'} %>

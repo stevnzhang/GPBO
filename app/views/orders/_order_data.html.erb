@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-content">
+    <h5>Information for this Order</h5><br />
+
+    <b>Date: </b>
+      <%= @order.date.strftime("%B %d, %Y") %><br /><br />
+
+    <b>Customer: </b>
+      <%= @order.customer.proper_name %><br /><br />
+
+    <b>Recipient: </b>
+      <%= @order.address.recipient %><br /><br />
+
+    <b>Grand Total:</b>
+      <%= number_to_currency(@order.products_total + @order.shipping) %><br /><br />
+
+  </div>
+</div>
