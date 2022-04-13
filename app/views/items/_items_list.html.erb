@@ -1,0 +1,64 @@
+<h4>Featured Items at GPBO</h4>
+
+<% if @featured_items.empty? %>
+  <h5>There are no featured items in that category at this time.</h5>
+<% else %>
+  <table class="striped highlight">
+    <thead>
+      <th>Name</th>
+      <th>Price</th>
+      <%# <% if current_user.role? :admin %> %>
+        <%# <th class="align_center">Options</th> %>
+      <%# <% end %> %>
+    </thead>
+    
+    <% for item in @featured_items %>
+      <tr>
+        <td><%= link_to item.name, item_path(item) %></td>
+        <td class="align_center"><%= item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(item.item_prices.current.first.price) %></td>
+        <% if current_user.role? :admin %>
+          <td class="align_center">
+          <%= link_to edit_item_path(item) do %>
+                <i class="material-icons">edit</i>
+            <% end %>
+            &nbsp;&nbsp;&nbsp;&nbsp; 
+            <%= link_to(item_path(item), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
+                <i class="material-icons">delete</i>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <%= will_paginate @featured_items, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+  <p>&nbsp;</p>
+<% end %>
+
+<h4>Other Items at GPBO</h4>
+<table class="striped highlight">
+  <thead>
+    <th>Name</th>
+    <th>Price</th>
+  </thead>
+  <% for item in @other_items %>
+    <tr>
+      <td><%= link_to item.name, item_path(item) %></td>
+      <td class="align_center"><%= item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(item.item_prices.current.first.price) %></td>
+      <% if current_user.role? :admin %>
+        <td class="align_center">
+        <%= link_to edit_item_path(item) do %>
+              <i class="material-icons">edit</i>
+          <% end %>
+          &nbsp;&nbsp;&nbsp;&nbsp; 
+          <%= link_to(item_path(item), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
+              <i class="material-icons">delete</i>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<br />
+
+<%= render :partial => "partials/add_new_object", locals: {model_name: 'item'} %>

@@ -1,0 +1,14 @@
+<br />
+<% unless @categories.empty? %>
+  <div class="card yellow lighten-4">
+    <div class="card-content">
+      <span class="card-title">Find by Category</span>
+      <ul>
+      <li><%= link_to "All", items_path %></li>
+        <% for category in @categories %>
+          <li><%= link_to category.name, items_path(category: category) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

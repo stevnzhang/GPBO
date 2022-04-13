@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-content">
+    <h5>Information for <%= @item.name %></h5><br />
+
+    <b>Description: </b>
+      <%= @item.description %><br /><br />
+
+    <b>Color: </b>
+      <%= @item.color %><br /><br />
+
+    <b>Weight: </b>
+      <%= @item.weight %> lbs<br /><br />
+
+    <b>Current Price: </b>
+      <%= number_to_currency(@item.current_retail_price) unless @item.current_retail_price == nil %><br /><br />
+
+    <b>Currently offered? </b>
+      <%= @item.active ? "Yes" : "No" %><br><br><br>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<% unless @items.empty? %>
+  <p><em><strong>Items matching term '<%= @query %>'</strong></em></p>
+  <ul>
+    <% for item in @items do %>
+      <li><%= link_to item.name, item_path(item) %></li>
+    <% end %>
+  </ul>
+  <p class="supertiny">&nbsp;</p>
+<% end %>
