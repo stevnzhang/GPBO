@@ -1,0 +1,13 @@
+<br />
+<% unless @inactive_customers.empty? %>
+  <div class="card yellow lighten-4">
+    <div class="card-content">
+      <span class="card-title">Inactive Customers</span>
+      <ul>
+        <% for customer in @inactive_customers %>
+          <li><%= link_to customer.name, customer_path(customer) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
