@@ -2,23 +2,23 @@ class OrdersController < ApplicationController
   include AppHelpers::Cart
   include AppHelpers::Shipping
 
-  #before_action :set_order, only: [:index, :show]
+  # before_action :set_order, only: [:index, :show]
   # before_action :check_login
   authorize_resource
 
   def index
     if current_user.role?(:customer)
-      @all_orders = current_user.customer.orders.chronological
+      @all_orders = current_user.customer.orders.chronological.paginate(page: params[:page]).per_page(15)
     else
-      @pending_orders = Order.not_shipped.chronological
+      @pending_orders = Order.not_shipped.chronological.paginate(page: params[:page]).per_page(15)
       @past_orders = Order.all.chronological - Order.not_shipped
     end
   end
 
   def show
     @order = Order.find(params[:id])
-    @previous_orders = current_user.customer.orders.chronological.to_a - [@order]
-    @order_items = OrderItem.alphabetical
+    @order_items = OrderItem.alphabetical.paginate(page: params[:page]).per_page(15)
+    @previous_orders = @order.customer.orders.chronological.to_a - [@order]
   end
 
   def create
@@ -34,6 +34,10 @@ class OrdersController < ApplicationController
   end
 
   private
+  # def set_order
+  #   @order = Order.find(params[:id])
+  # end
+
   def order_params
     subtotal = calculate_cart_items_cost()
     shipping_cost = calculate_cart_shipping()

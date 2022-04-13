@@ -4,8 +4,8 @@ class CustomersController < ApplicationController
   authorize_resource
 
   def index
-    @active_customers = Customer.active.alphabetical
-    @inactive_customers = Customer.inactive.alphabetical
+    @active_customers = Customer.active.alphabetical.paginate(page: params[:page]).per_page(15)
+    @inactive_customers = Customer.inactive.alphabetical.paginate(page: params[:page]).per_page(15)
   end
 
   def new

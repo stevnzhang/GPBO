@@ -24,9 +24,15 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @categories = Category.alphabetical
-    @featured_items = Item.featured.alphabetical
-    @other_items = Item.all - Item.featured
+    @categories = Category.active.alphabetical
+    if params[:category].present?
+      category = Category.find(params[:category])
+      @featured_items = Item.active.featured.for_category(category).alphabetical.paginate(page: params[:page]).per_page(15)
+      @other_items = Item.active.for_category(category).alphabetical - Item.featured
+    else
+      @featured_items = Item.featured.alphabetical.paginate(page: params[:page]).per_page(15)
+      @other_items = Item.active.alphabetical - Item.featured
+    end
   end
 
   def show
