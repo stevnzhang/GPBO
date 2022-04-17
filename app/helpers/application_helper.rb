@@ -24,4 +24,12 @@ module ApplicationHelper
     addresses.map{|addr| ["#{addr.recipient} - #{addr.street_1} #{addr.street_2} #{addr.city}, #{addr.state} #{addr.zip}", addr.id] }
   end
 
+  def get_credit_expiration_year(date=Date.current)
+    all_years = [date.year]
+    (1..4).each do |n|
+    all_years.append(date.year + n)
+    end
+    all_years
+  end
+
 end

@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
   authorize_resource
 
   def new
+    @item = Item.new
   end
 
   def create
@@ -24,7 +25,7 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @categories = Category.active.alphabetical
+    @categories = Category.alphabetical
     if params[:category].present?
       category = Category.find(params[:category])
       @featured_items = Item.active.featured.for_category(category).alphabetical.paginate(page: params[:page]).per_page(15)

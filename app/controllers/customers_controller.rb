@@ -1,4 +1,6 @@
 class CustomersController < ApplicationController
+  include AppHelpers::Cart
+
   before_action :set_customer, :only => [:show, :edit, :update]
   before_action :check_login, :only => [:show, :update, :edit]
   authorize_resource
@@ -23,7 +25,9 @@ class CustomersController < ApplicationController
       @customer.user_id = @user.id
       if @customer.save
         flash[:notice] = "#{@customer.proper_name} was added to the system."
-        redirect_to customer_path(@customer) 
+        session[:user_id] = @customer.user_id
+        create_cart
+        redirect_to customer_path(@customer), notice: "Logged in!"
       else
         render action: 'new'
       end      
@@ -32,7 +36,7 @@ class CustomersController < ApplicationController
 
   def show
     @previous_orders = @customer.orders.chronological.to_a
-    @addresses = @customer.addresses.to_a
+    @addresses = @customer.addresses.by_recipient.to_a
   end
 
   def edit
@@ -59,7 +63,7 @@ class CustomersController < ApplicationController
     params.require(:customer).permit(:first_name, :last_name, :email, :phone, :active, :username, :password, :password_confirmation)
   end
 
-  def user_params      
+  def user_params
     params.require(:customer).permit(:active, :username, :password, :password_confirmation)
   end
 

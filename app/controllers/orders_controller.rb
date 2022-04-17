@@ -25,6 +25,9 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     if @order.save
       # Add to cart?
+      @order.pay
+      save_each_item_in_cart(@order)
+      clear_cart()
       flash[:notice] = "Thank you for ordering from GPBO."
       redirect_to order_path(@order)
     else

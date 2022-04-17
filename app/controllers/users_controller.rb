@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @employees = User.employees
+    @employees = User.employees.alphabetical
   end
 
   def create

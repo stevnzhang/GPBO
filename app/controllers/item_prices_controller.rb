@@ -3,7 +3,8 @@ class ItemPricesController < ApplicationController
   # before_action :check_login, :except => [:index]
 
   def new
-    @item = Item.new
+    @item = Item.find(params[:item_id])
+    @item_price = ItemPrice.new
   end
 
   def create

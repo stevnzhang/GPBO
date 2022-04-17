@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     @items = Item.search(@query)
 
     if current_user.role?(:admin)
-      @customers = Customer.search(@query)
+      @customers = Customer.search(@query).alphabetical
       @total_hits = @items.size + @customers.size
     elsif current_user.role?(:customer)
       @total_hits = @items.size

@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  get 'search/search'
-  # get 'home/index'
-  # get 'home/about'
-  # get 'home/contact'
-  # get 'home/privacy'
-  # get 'home/search'
-
   # API routing
   scope module: 'api', defaults: {format: 'json'} do
     namespace :v1 do

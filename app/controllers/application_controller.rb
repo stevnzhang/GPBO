@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include AppHelpers::Cart
   protect_from_forgery with: :exception
 
   # PATS!
@@ -27,5 +28,10 @@ class ApplicationController < ActionController::Base
   def check_login
     redirect_to login_path, alert: "You need to log in to view this page." if current_user.nil?
   end
+
+  def num_unique_items_in_cart
+    get_list_of_items_in_cart().size
+  end
+  helper_method :num_unique_items_in_cart
 
 end

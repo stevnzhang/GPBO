@@ -13,21 +13,21 @@ class CartController < ApplicationController
 
   def add_item
     @item = Item.find(params[:id])
-    add_item_to_cart(@item.id)
-    redirect_to home_path
+    add_item_to_cart(params[:id])
+    redirect_to @item
     flash[:notice] = "#{@item.name} was added to cart."
   end
 
   def remove_item
     @item = Item.find(params[:id])
-    remove_item_from_cart(@item.id)
-    redirect_to home_path
+    remove_item_from_cart(params[:id])
+    redirect_to view_cart_path
     flash[:notice] = "#{@item.name} was removed from cart."
   end
 
   def empty_cart
     clear_cart()
-    redirect_to home_path
+    redirect_to view_cart_path
     flash[:notice] = "Cart is emptied."
   end
 
@@ -38,6 +38,7 @@ class CartController < ApplicationController
     @total = @subtotal + @shipping_cost
     @addresses = current_user.customer.addresses.by_recipient
     @order = Order.new
+    # redirect_to order_path(@order)
   end
 
   private
