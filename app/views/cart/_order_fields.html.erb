@@ -1,0 +1,7 @@
+<%= f.input :customer_id, as: :hidden, input_html: { value: current_user.customer.id } %>
+<%= f.input :address_id, collection: get_address_options_long(current_user), include_blank: true %>
+<%= link_to "Add a new address", new_address_path %>
+<%= f.input :credit_card_number, input_html: { class: 'active' } %>
+<%= f.input :expiration_month, collection: (1..12).to_a %>
+<%= f.input :expiration_year, collection: get_credit_expiration_year(Date.current) %>
+<%= f.input :total, as: :hidden, input_html: { value: @total } %>

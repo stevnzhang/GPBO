@@ -27,7 +27,7 @@ class CustomersController < ApplicationController
         flash[:notice] = "#{@customer.proper_name} was added to the system."
         session[:user_id] = @customer.user_id
         create_cart
-        redirect_to customer_path(@customer), notice: "Logged in!"
+        redirect_to customer_path(@customer)
       else
         render action: 'new'
       end      

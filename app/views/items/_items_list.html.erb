@@ -7,7 +7,7 @@
     <thead>
       <th>Name</th>
       <th>Price</th>
-      <% if logged_in? && current_user.role?(:admin) %> %>
+      <% if logged_in? && current_user.role?(:admin) %>
         <th>Inventory</th>
         <th class="align_center">Options</th>
       <% end %>
@@ -28,13 +28,13 @@
                 <i class="material-icons">delete</i>
             <% end %>
           </td>
-        <%# <% else %> %>
+        <%# <% else %>
           <%# <td class="align_center"><%= link_to "Add to Cart", add_item_path(item) %>
           <%# <td class="align_center"> %>
-          <%# <%= link_to add_item_path(item) do %> %>
+          <%# <%= link_to add_item_path(item) do %>
               <%# &nbsp;&nbsp; %>
               <%# <i class="material-icons">shopping_cart</i> %>
-          <%# <% end %> %>
+          <%# <% end %>
           <%# </td> %>
         <% end %>
       </tr>

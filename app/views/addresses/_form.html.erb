@@ -1,0 +1,25 @@
+<div class="card">    
+  <div class="card-content">
+    <%= simple_form_for(@address) do |f| %>
+      <%= f.error_notification %>
+      <div class="row">
+        <div class="form-inputs">
+          <%= f.input :customer_id, as: :hidden, input_html: { value: current_user.customer.id } %>
+          <%= f.input :recipient, label_html: { class: 'active' } %>
+          <%= f.input :street_1, label_html: { class: 'active' } %>
+          <%= f.input :street_2, label_html: { class: 'active' }, include_blank: true %>
+          <%= f.input :city, label_html: { class: 'active' } %>
+          <%= f.input :state, collection: Address::STATES_LIST, include_blank: true %>
+          <%= f.input :zip, label_html: { class: 'active' } %>
+          <%= f.input :active %>
+          <%= f.input :is_billing %>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="row">
+    <div class="form-actions col s8">
+      <%= f.button :submit, 'Place order' %>
+    </div>
+  </div>
+<% end %>
