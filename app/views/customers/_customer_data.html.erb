@@ -2,7 +2,7 @@
   <div class="card-content">
     <h5><%= best_in_place @customer, :first_name, as: :input %> 
         <%= best_in_place @customer, :last_name, as: :input %></h5>
-    <p>A GPBO customer since <%= @customer.created_at.year %>.</p><br />
+    <p>A GPBO customer since <%= @customer.created_at.year %></p><br />
 
     <b>Phone:&nbsp;&nbsp;</b><br>
       <%= best_in_place @customer, :phone, as: :input, display_with: :number_to_phone %><br /><br />
@@ -33,12 +33,12 @@
       <% for order in @customer.orders %>
         <tr>
           <td><%= link_to order.date.strftime("%m/%d/%y"), order_path(order) %></td>
-          <td><%= number_to_currency(order.products_total + order.shipping) %></td>
+          <td><%= number_to_currency(order.grand_total) %></td>
         </tr>
       <% end %>
     </table><br />
 
-    <b>Active with GPBO?&nbsp;&nbsp;</b>
+    <b>Active: </b>
       <%= @customer.active ? "Yes" : "No" %>
       <br>
   </div>
