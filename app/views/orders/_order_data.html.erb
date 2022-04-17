@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-content">
-    <h5>Information for this Order</h5><br />
+    <h5>Order Details</h5><br />
 
     <b>Date: </b>
       <%= @order.date.strftime("%B %d, %Y") %><br /><br />
@@ -11,8 +11,39 @@
     <b>Recipient: </b>
       <%= @order.address.recipient %><br /><br />
 
-    <b>Grand Total:</b>
+    <b>Item Count: </b>
+      <% if @order.order_items.size == 1 %>
+        <td><%= @order.order_items.size %> Item</td>
+      <% else %>
+        <td><%= @order.order_items.size %> Items</td>
+      <% end %>
+    <br /><br />
+
+    <b><h5>Order Cost Breakdown&nbsp;&nbsp;</h5></b><br />
+
+    <b>Product Subtotal: </b>
+      <%= number_to_currency(@order.products_total) %><br /><br />
+
+    <b>Shipping: </b>
+      <%= number_to_currency(@order.shipping) %><br /><br />
+
+    <b>Grand Total: </b>
       <%= number_to_currency(@order.products_total + @order.shipping) %><br /><br />
+    
+    <table class="striped highlight">
+      <thead>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Cost</th>
+      </thead>
+      <% for ord_item in @order.order_items %>
+        <tr>
+          <td><%= link_to ord_item.item.name, item_path(ord_item.item) %></td>
+          <td><%= ord_item.quantity %></td>
+          <td><%= number_to_currency(ord_item.subtotal(@order.date)) %></td>
+        </tr>
+      <% end %>
+    </table><br />
 
   </div>
 </div>

@@ -1,4 +1,11 @@
-<%= render partial: "partials/structure1", locals: {model_name: "order", 
-                                                       primary: "orders_list", 
-                                                       secondary: nil,
-                                                       sidebar: nil } %>
+<% if current_user.role? :customer %>
+    <%= render partial: "partials/structure1", locals: { model_name: "order", 
+                                                         primary: "customer_orders_list", 
+                                                         secondary: nil,
+                                                         sidebar: nil } %>
+<% elsif current_user.role? :admin %>
+    <%= render partial: "partials/structure1", locals: { model_name: "order", 
+                                                         primary: "admin_orders_list", 
+                                                         secondary: nil,
+                                                         sidebar: nil } %>
+<% end %>

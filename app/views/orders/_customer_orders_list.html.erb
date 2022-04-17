@@ -1,0 +1,22 @@
+<h4>All Orders</h4>
+<table class="striped highlight">
+  <thead>
+    <th>Date</th>
+    <th>Recipient</th>
+    <th>Item Count</th>
+    <th>Cost</th>
+  </thead>
+  <% for order in @all_orders %>
+    <tr>
+      <td><%= link_to order.date.strftime("%m/%d/%y"), order_path(order) %></td>
+      <td><%= order.address.recipient %></td>
+      <td><%= order.order_items.size %></td>
+      <td><%= number_to_currency(order.grand_total) %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<%= will_paginate @all_orders, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+<p>&nbsp;</p>
+
+<%= render :partial => "partials/add_new_object", locals: {model_name: 'order'} %>
