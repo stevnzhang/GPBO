@@ -1,0 +1,25 @@
+<div class="card">    
+  <div class="card-content">
+    <%= simple_form_for(@item) do |f| %>
+      <%= f.error_notification %>
+      <div class="row">
+        <div class="form-inputs">
+          <%= f.input :name, label_html: { class: 'active' } %>
+          <%= f.input :category_id, collection: Category.alphabetical.active.to_a%>
+          <%= f.input :description, label_html: { class: 'active' } %>
+          <%= f.input :color, label_html: { class: 'active' } %>
+          <%= f.input :inventory_level, label_html: { class: 'active' } %>
+          <%= f.input :reorder_level, label_html: { class: 'active' } %>
+          <%= f.input :weight, label_html: { class: 'active' } %>
+          <%= f.input :active %>
+          <%= f.input :is_featured %>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="row">
+    <div class="form-actions col s8">
+      <%= f.button :submit %>
+    </div>
+  </div>
+<% end %>

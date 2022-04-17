@@ -7,16 +7,18 @@
     <thead>
       <th>Name</th>
       <th>Price</th>
-      <%# <% if current_user.role? :admin %> %>
-        <%# <th class="align_center">Options</th> %>
-      <%# <% end %> %>
+      <% if logged_in? && current_user.role?(:admin) %> %>
+        <th>Inventory</th>
+        <th class="align_center">Options</th>
+      <% end %>
     </thead>
     
     <% for item in @featured_items %>
       <tr>
         <td><%= link_to item.name, item_path(item) %></td>
         <td class="align_center"><%= item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(item.item_prices.current.first.price) %></td>
-        <% if current_user.role? :admin %>
+        <% if logged_in? && current_user.role?(:admin) %>
+          <td><%= item.inventory_level %></td>
           <td class="align_center">
           <%= link_to edit_item_path(item) do %>
                 <i class="material-icons">edit</i>
@@ -26,6 +28,14 @@
                 <i class="material-icons">delete</i>
             <% end %>
           </td>
+        <%# <% else %> %>
+          <%# <td class="align_center"><%= link_to "Add to Cart", add_item_path(item) %>
+          <%# <td class="align_center"> %>
+          <%# <%= link_to add_item_path(item) do %> %>
+              <%# &nbsp;&nbsp; %>
+              <%# <i class="material-icons">shopping_cart</i> %>
+          <%# <% end %> %>
+          <%# </td> %>
         <% end %>
       </tr>
     <% end %>
@@ -40,12 +50,17 @@
   <thead>
     <th>Name</th>
     <th>Price</th>
+    <% if logged_in? && current_user.role?(:admin) %>
+        <th>Inventory</th>
+        <th class="align_center">Options</th>
+    <% end %>
   </thead>
   <% for item in @other_items %>
     <tr>
       <td><%= link_to item.name, item_path(item) %></td>
       <td class="align_center"><%= item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(item.item_prices.current.first.price) %></td>
-      <% if current_user.role? :admin %>
+      <% if logged_in? && current_user.role?(:admin) %>
+        <td><%= item.inventory_level %></td>
         <td class="align_center">
         <%= link_to edit_item_path(item) do %>
               <i class="material-icons">edit</i>
@@ -55,6 +70,14 @@
               <i class="material-icons">delete</i>
           <% end %>
         </td>
+      <%# <% else %>
+      <%# <td class="align_center><%= link_to "Add to Cart", add_item_path(item) %>
+        <%# <td class="align_center"> %>
+        <%# <%= link_to add_item_path(item) do %>
+            <%# &nbsp;&nbsp; %>
+            <%# <i class="material-icons">shopping_cart</i> %>
+        <%# <% end %>
+        <%# </td> %>
       <% end %>
     </tr>
   <% end %>

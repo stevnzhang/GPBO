@@ -14,6 +14,14 @@
     <b>Current Price: </b>
       <%= number_to_currency(@item.current_retail_price) unless @item.current_retail_price == nil %><br /><br />
 
+    <% if logged_in? && current_user.role?(:admin) %>
+      <b>Inventory Level: </b>
+        <%= @item.inventory_level %><br /><br />
+      
+      <b>Reorder Level: </b>
+        <%= @item.reorder_level %><br /><br />
+    <% end %>
+
     <b>Currently offered? </b>
       <%= @item.active ? "Yes" : "No" %><br><br><br>
   </div>
