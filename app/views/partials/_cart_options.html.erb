@@ -1,0 +1,19 @@
+<% if can? :index, Item %>
+  <% if num_unique_items_in_cart == 0 %>
+    <%= link_to(eval("items_path"), class: 'waves-effect waves-light btn') do %>
+      <%= "Start shopping" %>
+    <% end %>
+  <% else %>
+    <%= link_to(eval("items_path"), class: 'waves-effect waves-light btn') do %>
+      <%= "Continue shopping" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if can? :checkout, Order %>
+  <% if num_unique_items_in_cart > 0 %>
+    <%= link_to(eval("checkout_path"), class: 'waves-effect waves-light btn') do %>
+      <%= "Checkout" %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -20,4 +20,41 @@
         &nbsp;<%= "Delete #{opt}" %>
     <% end %>
   <% end %>
+
+  <br /><br />
+
+  <% if can? :toggle_active, object %>
+    <% if object.class == Item || object.class == Customer %>
+      <%= link_to(eval("toggle_active_path"), method: 'patch', class: 'waves-effect waves-light btn') do %>
+          <% if object.active? %>
+            <%= "Make Inactive" %>
+          <% else %>
+            <%= "Make Active" %>
+          <% end %>
+      <% end %>
+      &nbsp;&nbsp;
+    <% end %>
+  <% end %>
+
+  <% if can? :toggle_featured, object %>
+    <% if object.class == Item %>
+      <%= link_to(eval("toggle_feature_path"), method: 'patch', class: 'waves-effect waves-light btn') do %>
+          <% if object.is_featured? %>
+            <%= "Stop Featured" %>
+          <% else %>
+            <%= "Make Featured" %>
+          <% end %>
+      <% end %>
+      &nbsp;&nbsp;
+    <% end %>
+  <% end %>
+
+  <% if can? :add_to_cart, Order %>
+    <% if object.class == Item %>
+      <%= link_to(eval("add_item_path(object)"), class: 'waves-effect waves-light btn') do %>
+        <%= "Add to Cart" %>
+      <% end %>
+    <% end %>
+  <% end %>
+
 </div>
