@@ -1,0 +1,64 @@
+<h4>Your Cart</h4>
+
+<% if num_unique_items_in_cart == 0 %>
+  <h5>Your cart is currently empty.</h5>
+<% else %>
+  <% for ord_item in @items_in_cart %>
+    <b>Name: </b>
+      <%= ord_item.item.name %><br />
+    
+    <b>Unit Price: </b>
+      <%= ord_item.item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(ord_item.item.item_prices.current.first.price) %><br />
+
+    <b>Quantity: </b>
+      <%= ord_item.quantity %><br />
+
+    <b>Subtotal: </b>
+      <%= number_to_currency(ord_item.subtotal) %><br />
+
+    <b><%= link_to "Remove", remove_item_path(ord_item.item) %></b>
+    <br /><br />
+  <% end %>
+
+  <b><%= link_to "Empty cart", empty_cart_path %></b><br />
+  <hr />
+
+  <b>Subtotal: </b>
+    <%= number_to_currency(@subtotal) %><br />
+  
+  <b>Shipping: </b>
+    <%= number_to_currency(@shipping_cost) %><br />
+
+  <b>Grand Total: </b>
+    <%= number_to_currency(@total) %>
+  
+  <%# <table class="striped highlight"> %>
+    <%# <thead> %>
+      <%# <th>Name</th> %>
+      <%# <th>Unit Price</th> %>
+      <%# <th>Quantity</th> %>
+      <%# <th class="align_center">Options</th> %>
+    <%# </thead> %>
+    
+    <%# <% for ord_item in @items_in_cart %>
+      <%# <tr> %>
+        <%# <td><%= link_to ord_item.item.name, item_path(ord_item.item) </td> %>
+        <%# <td class="align_center"><%= ord_item.item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(ord_item.item.item_prices.current.first.price) </td> %>
+        <%# <td class="align_center"><%= link_to "Add to Cart", add_item_path(ord_item.item) %>
+        <%# <td><%= ord_item.quantity </td> %>
+        <%# <td class="align_center"> %>
+        <%# <%= link_to remove_item_path(ord_item.item) do %>
+            <%# &nbsp;&nbsp; %>
+            <%# <i class="material-icons">delete</i> %>
+        <%# <% end %>
+        <%# </td> %>
+      <%# </tr> %>
+    <%# <% end %>
+  <%# </table> %>
+  <br /><br />
+  
+<% end %>
+
+<%= render :partial => "partials/add_new_object", locals: {model_name: 'item'} %>
+<%= render :partial => "partials/cart_options", locals: {model_name: 'item'} %>
+

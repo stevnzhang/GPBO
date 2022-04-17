@@ -1,0 +1,15 @@
+<%= f.input :customer_id, as: :hidden, input_html: { value: current_user.customer.id } %>
+<%= f.input :address_id, collection: get_address_options_long(current_user), include_blank: true %>
+<%= f.input :credit_card_number, input_html: { class: 'active' } %>
+<%= f.input :expiration_month, collection: (1..12).to_a %>
+<%= f.input :expiration_year, collection: get_credit_expiration_year(Date.current) %>
+<%= f.input :total, as: :hidden, input_html: { value: @total } %>
+
+<%# <%= f.input :recipient, label_html: { class: 'active' } %> %>
+<%# <%= f.input :street_1, label_html: { class: 'active' } %> %>
+<%# <%= f.input :street_2, label_html: { class: 'active' }, include_blank: true %> %>
+<%# <%= f.input :city, label_html: { class: 'active' } %> %>
+<%# <%= f.input :state, collection: Owner::STATES_LIST, include_blank: true %> %>
+<%# <%= f.input :zip, label_html: { class: 'active' } %> %>
+<%# <%= f.input :active %> %>
+<%# <%= f.input :is_billing %> %>
