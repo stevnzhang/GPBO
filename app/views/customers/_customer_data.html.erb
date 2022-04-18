@@ -11,32 +11,40 @@
       <%= best_in_place @customer, :email, as: :input %><br /><br />
 
     <b>Addresses on file:&nbsp;&nbsp;</b><br>
-    <table class="striped highlight">
-      <thead>
-        <th>Address</th>
-        <th>Recipient</th>
-      </thead>
-      <% for address in @customer.addresses %>
-        <tr>
-          <td><%= link_to (address.street_1 + " " + address.city + ", " + address.state + " " + address.zip), address_path(address) %></td>
-          <td><%= address.recipient %></td>
-        </tr>
-      <% end %>
-    </table><br />
+    <% if @customer.addresses.empty? %>
+      <%= "None" %>
+    <% else %>
+      <table class="striped highlight">
+        <thead>
+          <th>Address</th>
+          <th>Recipient</th>
+        </thead>
+        <% for address in @customer.addresses %>
+          <tr>
+            <td><%= link_to (address.street_1 + " " + address.city + ", " + address.state + " " + address.zip), address_path(address) %></td>
+            <td><%= address.recipient %></td>
+          </tr>
+        <% end %>
+      </table><br />
+    <% end %>
 
     <b>Order History:&nbsp;&nbsp;</b><br>
-    <table class="striped highlight">
-      <thead>
-        <th>Date</th>
-        <th>Amount</th>
-      </thead>
-      <% for order in @customer.orders %>
-        <tr>
-          <td><%= link_to order.date.strftime("%m/%d/%y"), order_path(order) %></td>
-          <td><%= number_to_currency(order.grand_total) %></td>
-        </tr>
-      <% end %>
-    </table><br />
+    <% if @customer.addresses.empty? %>
+      <%= "None" %>
+    <% else %>
+      <table class="striped highlight">
+        <thead>
+          <th>Date</th>
+          <th>Amount</th>
+        </thead>
+        <% for order in @customer.orders %>
+          <tr>
+            <td><%= link_to order.date.strftime("%m/%d/%y"), order_path(order) %></td>
+            <td><%= number_to_currency(order.grand_total) %></td>
+          </tr>
+        <% end %>
+      </table><br />
+    <% end %>
 
     <b>Active: </b>
       <%= @customer.active ? "Yes" : "No" %>

@@ -1,7 +1,0 @@
-<% if can? :new, Address %>
-  <% if get_address_options_long(current_user).size < 1 %>
-    <%= link_to(eval("new_address_path"), class: 'waves-effect waves-light btn') do %>
-      <%= "Add a new address" %>
-    <% end %>
-  <% end %>
-<% end %>

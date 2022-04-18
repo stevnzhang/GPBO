@@ -7,21 +7,12 @@
       <th>Name</th>
       <th>Phone</th>
       <th>Email</th>
-      <th class="align_center">Options</th>
     </thead>
     <% for customer in @active_customers %>
       <tr>
         <td><%= link_to "#{customer.last_name}, #{customer.first_name}", customer_path(customer) %></td>
         <td><%= number_to_phone customer.phone %></td>
         <td><%= mail_to customer.email, customer.email, encode: "javascript" %></td>
-        <td class="align_center">
-          <%= link_to edit_customer_path(customer) do %>
-              <i class="material-icons">edit</i>
-          <% end %>
-          &nbsp;&nbsp;&nbsp;&nbsp; 
-          <%= link_to(customer_path(customer), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
-              <i class="material-icons">delete</i>
-          <% end %>
         </td>
       </tr>
     <% end %>

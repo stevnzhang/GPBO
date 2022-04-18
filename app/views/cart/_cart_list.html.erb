@@ -1,7 +1,7 @@
 <h4>Your Cart</h4>
 
 <% if num_unique_items_in_cart == 0 %>
-  <h5>Your cart is currently empty.</h5>
+  <br /><h5>Your cart is currently empty.</h5><br />
 <% else %>
   <% for ord_item in @items_in_cart %>
     <b>Name: </b>

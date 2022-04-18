@@ -1,7 +1,7 @@
 <h4>Featured Items at GPBO</h4>
 
 <% if @featured_items.empty? %>
-  <h5>There are no featured items in that category at this time.</h5>
+  <h5>There are no featured items in that category at this time.</h5><br /><br /><br />
 <% else %>
   <table class="striped highlight">
     <thead>
@@ -9,7 +9,6 @@
       <th>Price</th>
       <% if logged_in? && current_user.role?(:admin) %>
         <th>Inventory</th>
-        <th class="align_center">Options</th>
       <% end %>
     </thead>
     
@@ -18,16 +17,7 @@
         <td><%= link_to item.name, item_path(item) %></td>
         <td class="align_center"><%= item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(item.item_prices.current.first.price) %></td>
         <% if logged_in? && current_user.role?(:admin) %>
-          <td><%= item.inventory_level %></td>
-          <td class="align_center">
-          <%= link_to edit_item_path(item) do %>
-                <i class="material-icons">edit</i>
-            <% end %>
-            &nbsp;&nbsp;&nbsp;&nbsp; 
-            <%= link_to(item_path(item), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
-                <i class="material-icons">delete</i>
-            <% end %>
-          </td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<%= item.inventory_level %></td>
         <%# <% else %>
           <%# <td class="align_center"><%= link_to "Add to Cart", add_item_path(item) %>
           <%# <td class="align_center"> %>
@@ -46,42 +36,37 @@
 <% end %>
 
 <h4>Other Items at GPBO</h4>
-<table class="striped highlight">
-  <thead>
-    <th>Name</th>
-    <th>Price</th>
-    <% if logged_in? && current_user.role?(:admin) %>
-        <th>Inventory</th>
-        <th class="align_center">Options</th>
-    <% end %>
-  </thead>
-  <% for item in @other_items %>
-    <tr>
-      <td><%= link_to item.name, item_path(item) %></td>
-      <td class="align_center"><%= item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(item.item_prices.current.first.price) %></td>
+
+<% if @other_items.empty? %>
+  <h5>There are no other items in this category at this time.</h5><br /><br /><br />
+<% else %>
+  <table class="striped highlight">
+    <thead>
+      <th>Name</th>
+      <th>Price</th>
       <% if logged_in? && current_user.role?(:admin) %>
-        <td><%= item.inventory_level %></td>
-        <td class="align_center">
-        <%= link_to edit_item_path(item) do %>
-              <i class="material-icons">edit</i>
-          <% end %>
-          &nbsp;&nbsp;&nbsp;&nbsp; 
-          <%= link_to(item_path(item), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
-              <i class="material-icons">delete</i>
-          <% end %>
-        </td>
-      <%# <% else %>
-      <%# <td class="align_center><%= link_to "Add to Cart", add_item_path(item) %>
-        <%# <td class="align_center"> %>
-        <%# <%= link_to add_item_path(item) do %>
-            <%# &nbsp;&nbsp; %>
-            <%# <i class="material-icons">shopping_cart</i> %>
-        <%# <% end %>
-        <%# </td> %>
+          <th>Inventory</th>
       <% end %>
-    </tr>
-  <% end %>
-</table>
-<br />
+    </thead>
+    <% for item in @other_items %>
+      <tr>
+        <td><%= link_to item.name, item_path(item) %></td>
+        <td class="align_center"><%= item.item_prices.current.first.nil? ? 'N/A' : number_to_currency(item.item_prices.current.first.price) %></td>
+        <% if logged_in? && current_user.role?(:admin) %>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<%= item.inventory_level %></td>
+          <td class="align_center">
+        <%# <% else %>
+        <%# <td class="align_center><%= link_to "Add to Cart", add_item_path(item) %>
+          <%# <td class="align_center"> %>
+          <%# <%= link_to add_item_path(item) do %>
+              <%# &nbsp;&nbsp; %>
+              <%# <i class="material-icons">shopping_cart</i> %>
+          <%# <% end %>
+          <%# </td> %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
 
 <%= render :partial => "partials/add_new_object", locals: {model_name: 'item'} %>

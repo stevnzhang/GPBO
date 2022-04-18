@@ -1,76 +1,63 @@
 <h4>Pending Orders</h4>
-<table class="striped highlight">
-  <thead>
-    <th>Date</th>
-    <th>Customer</th>
-    <th>Recipient</th>
-    <th>Item Count</th>
-    <th>Cost</th>
-    <th class="align_center">Options</th>
-  </thead>
-  <% for order in @pending_orders %>
-    <tr>
-      <td><%= link_to order.date.strftime("%m/%d/%y"), order_path(order) %></td>
-      <td><%= order.customer.name %></td>
-      <td><%= link_to order.address.recipient, address_path(order.address) %></td>
-      <% if order.order_items.size == 1 %>
-        <td><%= order.order_items.size %> Item</td>
-      <% else %>
-        <td><%= order.order_items.size %> Items</td>
-      <% end %>
-      <td><%= number_to_currency(order.grand_total) %></td>
 
-      <td class="align_center">
-      <%= link_to edit_order_path(order) do %>
-            <i class="material-icons">edit</i>
+<% if @pending_orders.empty? %>
+  <h5>There are no pending orders at this time.</h5><br /><br /><br />
+<% else %>
+  <table class="striped highlight">
+    <thead>
+      <th>Date</th>
+      <th>Customer</th>
+      <th>Recipient</th>
+      <th>Item Count</th>
+      <th>Cost</th>
+    </thead>
+    <% for order in @pending_orders %>
+      <tr>
+        <td><%= link_to order.date.strftime("%m/%d/%y"), order_path(order) %></td>
+        <td><%= order.customer.name %></td>
+        <td><%= link_to order.address.recipient, address_path(order.address) %></td>
+        <% if order.order_items.size == 1 %>
+          <td><%= order.order_items.size %> Item</td>
+        <% else %>
+          <td><%= order.order_items.size %> Items</td>
         <% end %>
-        &nbsp;&nbsp;&nbsp;&nbsp; 
-        <%= link_to(order_path(order), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
-            <i class="material-icons">delete</i>
-        <% end %>
-      </td>
-
-    </tr>
-  <% end %>
-</table>
-<br />
+        <td><%= number_to_currency(order.grand_total) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+<% end %>
 
 <h4>Past Orders</h4>
-<table class="striped highlight">
-  <thead>
-    <th>Date</th>
-    <th>Customer</th>
-    <th>Recipient</th>
-    <th>Item Count</th>
-    <th>Cost</th>
-    <th class="align_center">Options</th>
-  </thead>
-  <% for order in @past_orders %>
-    <tr>
-      <td><%= link_to order.date.strftime("%m/%d/%y"), order_path(order) %></td>
-      <td><%= order.customer.name %></td>
-      <td><%= link_to order.address.recipient, address_path(order.address) %></td>
-      <% if order.order_items.size == 1 %>
-        <td><%= order.order_items.size %> Item</td>
-      <% else %>
-        <td><%= order.order_items.size %> Items</td>
-      <% end %>
-      <td><%= number_to_currency(order.grand_total) %></td>
 
-      <td class="align_center">
-      <%= link_to edit_order_path(order) do %>
-            <i class="material-icons">edit</i>
+<% if @past_orders.empty? %>
+  <h5>There are no past orders at this time.</h5><br /><br /><br />
+<% else %>
+  <table class="striped highlight">
+    <thead>
+      <th>Date</th>
+      <th>Customer</th>
+      <th>Recipient</th>
+      <th>Item Count</th>
+      <th>Cost</th>
+    </thead>
+    <% for order in @past_orders %>
+      <tr>
+        <td><%= link_to order.date.strftime("%m/%d/%y"), order_path(order) %></td>
+        <td><%= order.customer.name %></td>
+        <td><%= link_to order.address.recipient, address_path(order.address) %></td>
+        <% if order.order_items.size == 1 %>
+          <td><%= order.order_items.size %> Item</td>
+        <% else %>
+          <td><%= order.order_items.size %> Items</td>
         <% end %>
-        &nbsp;&nbsp;&nbsp;&nbsp; 
-        <%= link_to(order_path(order), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
-            <i class="material-icons">delete</i>
-        <% end %>
-      </td>
+        <td><%= number_to_currency(order.grand_total) %></td>
 
-    </tr>
-  <% end %>
-</table>
-<br />
+      </tr>
+    <% end %>
+  </table>
+  <br />
+<% end %>
 
 <%= will_paginate @pending_orders, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 <p>&nbsp;</p>
